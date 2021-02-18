@@ -35,11 +35,11 @@ app.get("/api/timestamp/:date?", (request, response) => {
   }
   
   // Construct Object
-  let datetimeObject = {'unix': datetime.getTime(), 'utc': datetime.toUTCString()};
+  let datetimeObject = {unix: datetime.getTime(), utc: datetime.toUTCString()};
   
   // Check if date is invalid
   if (datetimeObject.utc === 'Invalid Date') {
-    datetimeObject = {'error': 'Invalid Date'}
+    datetimeObject = {error: 'Invalid Date'}
   }
   
   console.log(datetimeObject);

@@ -24,19 +24,19 @@ app.get("/api/hello", function (req, res) {
 });
 
 app.get("/api/timestamp/:date?", (request, response) => {
-  console.log(request.params.date)
   let datetime;
   
   // Attempt to parse date if not null
   if (!request.params.date) {
     datetime = new Date();
   } else {
-    datetime = new Date(request.params.date);
-    if (datetime.toUTCString() === 'Invalid Date') {
-      datetime = new Date(request.params.date * 1000);
+    if (!isNaN(Number(request.params.date))) {
+      datetime = new Date(Number(request.params.date));
+    } else {
+      datetime = new Date(request.params.date);
     }
   }
-  
+
   // Construct Object
   let datetimeObject = {unix: datetime.getTime(), utc: datetime.toUTCString()};
   
@@ -45,7 +45,6 @@ app.get("/api/timestamp/:date?", (request, response) => {
     datetimeObject = {error: 'Invalid Date'}
   }
   
-  console.log(datetimeObject);
   response.json(datetimeObject);
 });
 

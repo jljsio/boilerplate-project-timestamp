@@ -32,6 +32,9 @@ app.get("/api/timestamp/:date?", (request, response) => {
     datetime = new Date();
   } else {
     datetime = new Date(request.params.date);
+    if (datetime.toUTCString() === 'Invalid Date') {
+      datetime = new Date(request.params.date * 1000);
+    }
   }
   
   // Construct Object
